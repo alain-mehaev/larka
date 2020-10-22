@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Foundation\Inspiring;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,11 @@ use Illuminate\Foundation\Inspiring;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
+
+Artisan::command('setShowtime', function() {
+    $unixtime = '"'.date('h:i:s d.m.Y', strtotime('+3 hours')).'"';
+    $realtime = '"'.date('Y-m-d h:i:s', strtotime('+3 hours')).'"';
+    DB::table('showtime')->insert([
+        ['unixtime' => $unixtime, 'realtime' => $realtime]
+    ]);
+});
